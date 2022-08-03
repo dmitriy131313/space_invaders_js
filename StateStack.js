@@ -1,4 +1,5 @@
 const StateID = {
+    "NO_STATE"  : -1,
     "TITLE"     : 0,
     "MENU"      : 1,
     "INGAME"    : 2,
@@ -23,7 +24,7 @@ class StateStack
     constructor()
     {
         this.#mStack = [];
-        this.#mPendingList = new Map();
+        this.#mPendingList = [];
         this.#mFactories = new Map();
     }
 
@@ -55,34 +56,51 @@ class StateStack
 	    this.#applyPendingChanges();
     }
 
-	pushState(state_id)
+	pushState(id)
     {
-
+        this.#mPendingList.push({action : StackAction.PUSH, state_id : id});
     }
 
 	popState()
     {
-
+        this.#mPendingList.push({action : StackAction.POP, state_id : StateID.NO_STATE});
     }
 		
     clearStates()
     {
-
+        this.#mPendingList.push({action : StackAction.CLEAR, state_id : StateID.NO_STATE});
     }
 
 	isEmpty() // -> bool
     {
-
+        return (arr.length == 0) ? true : false;
     }
 
 //private:
     #createState(id) // -> state pointer
     {
-
+        return this.#mFactories[id];
     }
 
     #applyPendingChanges()
     {
-
+        for (let index = 0; index < this.#mPendingList.length; index++)
+        {
+            switch (this.#mPendingList[index].action)
+            {
+                case StackAction.PUSH:
+                    this.#mStack.push(this.#createState(this.#mPendingList[index].state_id));
+                    break;
+    
+                case StackAction.POP:
+                    this.#mStack.pop();
+                    break;
+    
+                case StackAction.CLEAR:
+                    this.#mStack = [];
+                    break;
+            }
+        } 
+        this.#mPendingList = [];
     }
 }
