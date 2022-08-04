@@ -20,6 +20,7 @@ stack.registerState(StateID.MENU, function(){return new TestState2(stack);});
 
 stack.pushState(StateID.TITLE);
 stack.update(1);
+stack.update(1);
 stack.draw();
 
 

@@ -79,7 +79,7 @@ class StateStack
 //private:
     #createState(id) // -> state pointer
     {
-        return this.#mFactories[id];
+        return this.#mFactories.get(id)();
     }
 
     #applyPendingChanges()
