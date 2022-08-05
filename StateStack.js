@@ -2,7 +2,7 @@ const StateID = {
     "NO_STATE"  : -1,
     "TITLE"     : 0,
     "MENU"      : 1,
-    "INGAME"    : 2,
+    "GAME"      : 2,
     "ENDSCREEN" : 3
 };
 

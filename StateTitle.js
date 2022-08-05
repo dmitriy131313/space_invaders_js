@@ -1,4 +1,4 @@
-class TestState2 extends State
+class StateTitle extends State
 {
     constructor(stateStack_ref)
     {

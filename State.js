@@ -38,6 +38,5 @@ class State
     {
         this.#mStateStack_ref.clearStates();
     }
-
 }
 

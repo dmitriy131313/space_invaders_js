@@ -1,9 +1,9 @@
 const category = {
-    "ONE"   : 1,
-    "TWO"   : 2,
-    "THREE" : 3,
-    "FOUR"  : 4,
-    "FIVE"  : 5
+    "ONE"   : 0x01,
+    "TWO"   : 0x02,
+    "THREE" : 0x04,
+    "FOUR"  : 0x08,
+    "FIVE"  : 0x10
 }
 
 //================================================================================
@@ -13,6 +13,7 @@ class SceneNode
     #_mChildren;
     #_mCategory;
     #_mParent;
+
 //public:
     constructor(cat)
     {
@@ -61,6 +62,16 @@ class SceneNode
         return this.#_mCategory;
     }
 
+    onCommand(command, dt)
+    {
+        // Command current node, if category matches
+	    if (command.category & this.getCategory())
+            command.action(this, dt);
+
+        // Command children
+        this.#_mChildren.forEach(function(item, index){item.onCommand(command, dt);});
+    }
+
 //private methods:
     #updateCurrent(dt)
     {
@@ -81,5 +92,4 @@ class SceneNode
     {
         this.#_mChildren.forEach(function(item, index){item.draw();});
     }
-
 }
