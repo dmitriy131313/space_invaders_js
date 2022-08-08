@@ -24,13 +24,13 @@ class SceneNode
 
     draw()
     {
-        this.#drawCurrent();
+        this.drawCurrent();
         this.#drawChildren();
     }
 
     update(dt)
     {
-        this.#updateCurrent(dt);
+        this.updateCurrent(dt);
         this.#updateChildren(dt);
     }
 
@@ -72,8 +72,7 @@ class SceneNode
         this.#_mChildren.forEach(function(item, index){item.onCommand(command, dt);});
     }
 
-//private methods:
-    #updateCurrent(dt)
+    updateCurrent(dt)
     {
 
     }
@@ -83,9 +82,9 @@ class SceneNode
         this.#_mChildren.forEach(function(item, index){item.update(dt);});
     }
 
-    #drawCurrent()
+    drawCurrent()
     {
-        console.log(this.#_mCategory)
+        //console.log(this.#_mCategory)
     }
 
     #drawChildren()

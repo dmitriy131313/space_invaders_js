@@ -23,6 +23,9 @@ const stack = new StateStack();
 // stack.update(1);
 // stack.draw();
 
+const aaa = new Aircraft({x : 100, y : 100}, 100, category.ONE);
+aaa.draw();
+
 
 m1 = new SceneNode(category.ONE);
 m2 = new SceneNode(category.TWO);

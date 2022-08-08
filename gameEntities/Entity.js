@@ -1,11 +1,11 @@
-class Entity
+class Entity extends SceneNode
 {
     #mVelocity;
     #mHitpoints;
 
-    constructor()
+    constructor(cat)
     {
-
+        super(cat);
     }
 
     set Velocity(velocity)
@@ -41,10 +41,5 @@ class Entity
     isDestroyed()
     {
         return (this.#mHitpoints <= 0);
-    }
-
-    updateCurrent(dt)
-    {
-
     }
 }

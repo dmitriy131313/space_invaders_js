@@ -18,17 +18,17 @@ class Sprite
         offset = { x: 0, y: 0 }
         }) 
     {
-        this.#mPosition = position
-        this.#mImage = new Image()
-        this.#mImage.src = imageSrc
+        this.#mPosition = position;
+        this.#mImage = new Image();
+        this.#mImage.src = imageSrc;
         this.#mImage.width = imageProp.width;
         this.#mImage.height = imageProp.height;
-        this.#mScale = scale
-        this.#mFramesMax = framesMax
-        this.#mFramesCurrent = 0
-        this.#mFramesElapsed = 0
-        this.#mFramesHold = 5
-        this.#mOffset = offset
+        this.#mScale = scale;
+        this.#mFramesMax = framesMax;
+        this.#mFramesCurrent = 0;
+        this.#mFramesElapsed = 0;
+        this.#mFramesHold = 5;
+        this.#mOffset = offset;
     }
     
     draw() 
@@ -37,16 +37,19 @@ class Sprite
             this.#mImage,
             this.#mFramesCurrent * (this.#mImage.width / this.#mFramesMax),
             0,
-            this.#mImag.width / this.#mFramesMax,
-            this.#mImag.height,
+            this.#mImage.width / this.#mFramesMax,
+            this.#mImage.height,
             this.#mPosition.x - this.#mOffset.x,
             this.#mPosition.y - this.#mOffset.y,
-            (this.#mImag.width / this.#mFramesMax) * this.#mScale,
-            this.#mImag.height * this.#mScale
+            (this.#mImage.width / this.#mFramesMax) * this.#mScale,
+            this.#mImage.height * this.#mScale
         )
+    }
 
+    animate()
+    {
         this.#mFramesElapsed++
-    
+
         if (this.#mFramesElapsed % this.#mFramesHold === 0) 
         {
             if (this.#mFramesCurrent < this.#mFramesMax - 1) 
