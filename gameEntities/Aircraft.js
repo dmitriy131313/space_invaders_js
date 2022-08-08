@@ -1,0 +1,7 @@
+class Aircraft
+{
+    constructor()
+    {
+        
+    }
+}
