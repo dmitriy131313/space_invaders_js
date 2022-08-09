@@ -1,41 +1,43 @@
 class Entity extends SceneNode
 {
-    #mVelocity;
+    _mVelocity;
     #mHitpoints;
+    _Position;
 
     constructor(cat)
     {
         super(cat);
+        this._Position = {x : 0, y : 0};
     }
 
     set Velocity(velocity)
     {
-        this.#mVelocity = velocity;
+        this._mVelocity = velocity;
     }
 
     get Velocity()
     {
-        return this.#mVelocity;
+        return this._mVelocity;
     }
 
     set Position(position)
     {
-
+        this._Position = position;
     }
 
     get Position()
     {
-        return {x : 0, y : 0};
+        return this._Position;
     }
 
     accelerate(velocity)
     {
-        this.#mVelocity += velocity;
+        this._mVelocity += velocity;
     }
 
     get Hitpoints()
     {
-        return this.#mHitpoints;
+        return this._mHitpoints;
     } 
 
     damage(points)

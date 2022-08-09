@@ -40,6 +40,18 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 const aaa = new Aircraft({x : 200, y : 200}, 100, category.ONE);
 aaa.draw();
 
+var www = 20;
+
+function animate() {
+    c.fillStyle = 'black';
+    c.fillRect(0, 0, canvas.width, canvas.height);
+
+    www++;
+    aaa.Position = {x : www, y : 100};
+    aaa.draw();
+    window.requestAnimationFrame(animate);
+}
+
 
 m1 = new SceneNode(category.ONE);
 m2 = new SceneNode(category.TWO);
@@ -65,4 +77,4 @@ m2.attachChild(m5);
 
 while (!commandQueue.isEmpty()) m1.onCommand(commandQueue.pop(), 1);
 
-//animate();
+animate();

@@ -4,8 +4,9 @@ class Aircraft extends Entity
     constructor(position, hitpoints, cat)
     {
         super(cat);
+        this._Position = position;
         this.#mSprite = new Sprite({
-            position : position,
+            position : this._Position,
             imageSrc : "./sprites/SpaceShooterAssetPack_Ships_500.png",
             spriteProp : {width : 50, height : 50},
             scale : 1,
