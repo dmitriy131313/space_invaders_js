@@ -18,6 +18,16 @@ class Entity extends SceneNode
         return this.#mVelocity;
     }
 
+    set Position(position)
+    {
+
+    }
+
+    get Position()
+    {
+        return {x : 0, y : 0};
+    }
+
     accelerate(velocity)
     {
         this.#mVelocity += velocity;

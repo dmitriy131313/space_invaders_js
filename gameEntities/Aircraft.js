@@ -6,13 +6,15 @@ class Aircraft extends Entity
         super(cat);
         this.#mSprite = new Sprite({
             position : position,
-            imageSrc : "./sprites/SpaceShooterAssetPack_Ships.png",
-            imageProp : {width : 8, height : 8},
-            scale : 20,
-            offset : {x : 8, y : 0}
+            imageSrc : "./sprites/SpaceShooterAssetPack_Ships_500.png",
+            spriteProp : {width : 50, height : 50},
+            scale : 1,
+            framesMax : {x : 10, y : 10}
         });
 
         super.hitpoints = hitpoints;
+
+        this.#mSprite.Frame = {x : 1, y : 0};
     }
 
     updateCurrent(dt)
