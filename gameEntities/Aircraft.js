@@ -6,7 +6,7 @@ class Aircraft extends Entity
         super(cat);
         this._Position = position;
         this.#mSprite = new Sprite({
-            position : this._Position,
+            position : position,
             imageSrc : "./sprites/SpaceShooterAssetPack_Ships_500.png",
             spriteProp : {width : 50, height : 50},
             scale : 1,
@@ -20,7 +20,9 @@ class Aircraft extends Entity
 
     updateCurrent(dt)
     {
-
+        this._Position.x += this._mVelocity.x;
+        this._Position.y += this._mVelocity.y;
+        this.#mSprite.Position = this._Position;
     }
 
     drawCurrent()

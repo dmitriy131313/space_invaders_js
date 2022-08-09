@@ -8,6 +8,7 @@ class Entity extends SceneNode
     {
         super(cat);
         this._Position = {x : 0, y : 0};
+        this._mVelocity = {x : 0, y : 0};
     }
 
     set Velocity(velocity)

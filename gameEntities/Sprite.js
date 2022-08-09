@@ -22,14 +22,11 @@ class Sprite
         this.#mImage = new Image();
         this.#mImage.src = imageSrc;
         this.#mSpriteProp = spriteProp;
-        // this.#mImage.width = imageProp.width;
-        // this.#mImage.height = imageProp.height;
         this.#mScale = scale;
         this.#mFramesMax = framesMax;
         this.#mFramesCurrent = frameStart;
         this.#mFramesElapsed = 0;
         this.#mFramesHold = 5;
-        //this.#mOffset = offset;
     }
     
     draw() 

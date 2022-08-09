@@ -38,16 +38,20 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 // aaa.draw();
 
 const aaa = new Aircraft({x : 200, y : 200}, 100, category.ONE);
-aaa.draw();
+//aaa.draw();
+//aaa.Position = {x : 10, y : 100};
+aaa.Velocity = {x : 10, y : 0};
 
-var www = 20;
+//var www = 20;
 
 function animate() {
     c.fillStyle = 'black';
     c.fillRect(0, 0, canvas.width, canvas.height);
 
-    www++;
-    aaa.Position = {x : www, y : 100};
+    //www++;
+    //aaa.Position = {x : www, y : 100};
+    //console.log("ddd");
+    aaa.update(1);
     aaa.draw();
     window.requestAnimationFrame(animate);
 }
