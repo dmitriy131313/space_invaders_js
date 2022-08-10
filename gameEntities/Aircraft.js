@@ -18,6 +18,17 @@ class Aircraft extends Entity
         this.#mSprite.Frame = {x : 1, y : 0};
     }
 
+    getBoundingRect()
+    {
+        let ret = {
+            x     : this._Position.x, 
+            y     : this._Position.y, 
+            width : this.#mSprite.SpriteProp.width,
+            heigh : this.#mSprite.SpriteProp.heigh
+        }
+        return ret;
+    }
+
     updateCurrent(dt)
     {
         this._Position.x += this._mVelocity.x;

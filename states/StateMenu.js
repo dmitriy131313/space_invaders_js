@@ -3,6 +3,7 @@ class StateMenu extends State
     constructor(stateStack_ref)
     {
         super(stateStack_ref);
+        console.log("MENU")
     }
 
     draw() //virtual

@@ -54,6 +54,14 @@ class Sprite
         this.#mFramesCurrent = frame;
     }
 
+    get SpriteProp()
+    {
+        return {
+            width : this.#mSpriteProp.width * this.#mScale,
+            heigh : this.#mSpriteProp.height * this.#mScale
+        };
+    }
+
     animate()
     {
         this.#mFramesElapsed++

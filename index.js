@@ -4,10 +4,11 @@ const c = canvas.getContext('2d');
 canvas.width = 1024;
 canvas.height = 500;
 
-c.fillRect(0, 0, canvas.width, canvas.height);
-
 c.fillStyle = 'black';
 c.fillRect(0, 0, canvas.width, canvas.height);
+
+
+//c.fillRect(0, 0, canvas.width, canvas.height);
 
 // function animate() {
 //     c.fillStyle = 'black';
@@ -16,59 +17,71 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 //     window.requestAnimationFrame(animate);
 // }
 
-const stack = new StateStack();
+const mStack = new StateStack();
 
-// stack.registerState(StateID.TITLE, function(){return new TestState1(stack);});
-// stack.registerState(StateID.MENU, function(){return new TestState2(stack);});
+mStack.registerState(StateID.TITLE, function(){return new StateTitle(mStack);});
+mStack.registerState(StateID.MENU, function(){return new StateMenu(mStack);});
+mStack.registerState(StateID.GAME, function(){return new StateGame(mStack);});
+mStack.registerState(StateID.ENDSCREEN, function(){return new StateEndscreen(mStack);});
+
+mStack.pushState(StateID.TITLE);
 
 // stack.pushState(StateID.TITLE);
 // stack.update(1);
 // stack.update(1);
 // stack.draw();
 
-c.fillStyle = 'black';
-c.fillRect(0, 0, canvas.width, canvas.height);
+// c.fillStyle = 'black';
+// c.fillRect(0, 0, canvas.width, canvas.height);
 
-// const aaa = new Image();
-// aaa.src = "./sprites/SpaceShooterAssetPack_Ships_500.png";
+// const aaa = new Aircraft({x : 200, y : 200}, 100, category.ONE);
+// aaa.Velocity = {x : 10, y : 0};
 
-// c.drawImage(aaa, 50, 0, 50, 50,    100, 100, 30, 30);
+var KeyEvent = {keyup : undefined, keydown : undefined};
+window.addEventListener('keydown', (event) => {
+    KeyEvent.keydown = event.key;
+})
 
-// const aaa = new Sprite({x : 150, y : 150}, 100, category.ONE);
-// aaa.draw();
+window.addEventListener('keyup', (event) => {
+    KeyEvent.keyup = event.key;
+})
 
-const aaa = new Aircraft({x : 200, y : 200}, 100, category.ONE);
-//aaa.draw();
-//aaa.Position = {x : 10, y : 100};
-aaa.Velocity = {x : 10, y : 0};
-
-//var www = 20;
-
-function animate() {
+function Loop() 
+{
+    mStack.handleEvent(KeyEvent);
+    KeyEvent = {keyup : undefined, keydown : undefined};
+    mStack.update(20);
     c.fillStyle = 'black';
     c.fillRect(0, 0, canvas.width, canvas.height);
-
-    //www++;
-    //aaa.Position = {x : www, y : 100};
-    //console.log("ddd");
-    aaa.update(1);
-    aaa.draw();
-    window.requestAnimationFrame(animate);
+    mStack.draw()
 }
+window.requestAnimationFrame(Loop);
+window.setInterval(Loop, 20);
+
+// function animate() {
+//     c.fillStyle = 'black';
+//     c.fillRect(0, 0, canvas.width, canvas.height);
+
+//     //www++;
+//     //aaa.Position = {x : www, y : 100};
+//     //console.log("ddd");
+//     aaa.update(1);
+//     aaa.draw();
+//     window.requestAnimationFrame(animate);
+// }
 
 
-m1 = new SceneNode(category.ONE);
-m2 = new SceneNode(category.TWO);
-m3 = new SceneNode(category.THREE);
-m4 = new SceneNode(category.FOUR);
-m5 = new SceneNode(category.FIVE);
+// m1 = new SceneNode(category.ONE);
+// m2 = new SceneNode(category.TWO);
+// m3 = new SceneNode(category.THREE);
+// m4 = new SceneNode(category.FOUR);
+// m5 = new SceneNode(category.FIVE);
 
-m1.attachChild(m2);
-// m1.attachChild(m3);
+// m1.attachChild(m2);
 
-m2.attachChild(m3);
-m2.attachChild(m4);
-m2.attachChild(m5);
+// m2.attachChild(m3);
+// m2.attachChild(m4);
+// m2.attachChild(m5);
 
 // commandQueue.push({
 //     category : (category.FOUR | category.ONE | category.THREE),
@@ -79,6 +92,6 @@ m2.attachChild(m5);
 //     }
 // });
 
-while (!commandQueue.isEmpty()) m1.onCommand(commandQueue.pop(), 1);
+//while (!commandQueue.isEmpty()) m1.onCommand(commandQueue.pop(), 1);
 
-animate();
+//animate();
