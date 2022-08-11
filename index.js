@@ -37,7 +37,13 @@ mStack.pushState(StateID.TITLE);
 // const aaa = new Aircraft({x : 200, y : 200}, 100, category.ONE);
 // aaa.Velocity = {x : 10, y : 0};
 
-var KeyEvent = {keyup : undefined, keydown : undefined};
+var KeyEvent = {
+    keyup : undefined, 
+    keydown : undefined, 
+    mouse_move : undefined, 
+    mouse_click : false
+};
+
 window.addEventListener('keydown', (event) => {
     KeyEvent.keydown = event.key;
 })
@@ -46,10 +52,23 @@ window.addEventListener('keyup', (event) => {
     KeyEvent.keyup = event.key;
 })
 
+canvas.addEventListener('mousemove', (event) => {
+    KeyEvent.mouse_move = event;
+})
+
+canvas.addEventListener('click', () => {
+    KeyEvent.mouse_click = true;
+})
+
 function Loop() 
 {
     mStack.handleEvent(KeyEvent);
-    KeyEvent = {keyup : undefined, keydown : undefined};
+    KeyEvent = {
+        keyup : undefined, 
+        keydown : undefined,
+        mouse_move : undefined, 
+        mouse_click : false
+    };
     mStack.update(20);
     c.fillStyle = 'black';
     c.fillRect(0, 0, canvas.width, canvas.height);

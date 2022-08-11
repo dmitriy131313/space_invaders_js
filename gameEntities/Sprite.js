@@ -49,6 +49,21 @@ class Sprite
         this.#mPosition = position;
     }
 
+    get Position()
+    {
+        return this.#mPosition;
+    }
+
+    set Scale(scale)
+    {
+        this.#mScale = scale;
+    }
+
+    get Scale()
+    {
+        return this.#mScale;;
+    }
+
     set Frame(frame)
     {
         this.#mFramesCurrent = frame;

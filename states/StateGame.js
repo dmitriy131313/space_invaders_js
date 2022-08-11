@@ -3,6 +3,7 @@ class StateGame extends State
     constructor(stateStack_ref)
     {
         super(stateStack_ref);
+        console.log("GAME");
     }
 
     draw() //virtual
