@@ -14,7 +14,6 @@ class Aircraft extends Entity
         });
 
         super.hitpoints = hitpoints;
-
         this.#mSprite.Frame = {x : 1, y : 0};
     }
 
@@ -39,5 +38,28 @@ class Aircraft extends Entity
     drawCurrent()
     {
         this.#mSprite.draw();
+    }
+
+    stop()
+    {
+        this.#mSprite.Frame = {x : 1, y : 0};
+        this._mVelocity.x = 0;
+    }
+
+    right()
+    {
+        this.#mSprite.Frame = {x : 2, y : 0};
+        this._mVelocity.x = 5;
+    }
+
+    left()
+    {
+        this.#mSprite.Frame = {x : 0, y : 0};
+        this._mVelocity.x = -5;
+    }
+
+    shoot()
+    {
+
     }
 }

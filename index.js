@@ -25,8 +25,9 @@ mStack.registerState(StateID.GAME, function(){return new StateGame(mStack);});
 mStack.registerState(StateID.ENDSCREEN, function(){return new StateEndscreen(mStack);});
 
 mStack.pushState(StateID.TITLE);
+//mStack.pushState(StateID.GAME);
 
-// stack.pushState(StateID.TITLE);
+
 // stack.update(1);
 // stack.update(1);
 // stack.draw();
