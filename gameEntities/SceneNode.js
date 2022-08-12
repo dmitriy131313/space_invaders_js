@@ -29,8 +29,9 @@ class SceneNode
 
     update(dt)
     {
-        this.updateCurrent(dt);
+        let ret = this.updateCurrent(dt);
         this.#updateChildren(dt);
+        return ret;
     }
 
     setParent(parent)
@@ -38,10 +39,22 @@ class SceneNode
         this.#_mParent = parent;
     }
 
+    getParent()
+    {
+        return this.#_mParent;
+    }
+
     attachChild(child)
     {
         child.setParent(this);
         this.#_mChildren.push(child);
+    }
+
+    attachChildToTopParent(child)
+    {
+        let topParent = this.#findTopParent(this.getParent());
+        child.setParent(topParent);
+        topParent.#_mChildren.push(child);
     }
 
     detachChild(child_to_detach)
@@ -73,12 +86,21 @@ class SceneNode
 
     updateCurrent(dt)
     {
-
+        return false;
     }
 
     #updateChildren(dt)
     {
-        this.#_mChildren.forEach(function(item, index){item.update(dt);});
+        let i = 0;
+        while (i < this.#_mChildren.length) {
+            const item = this.#_mChildren[i];
+            if (item.update(dt)) {
+                this.detachChild(item);
+            }
+            else {
+                i += 1;
+            }
+        }
     }
 
     drawCurrent()
@@ -89,5 +111,19 @@ class SceneNode
     #drawChildren()
     {
         this.#_mChildren.forEach(function(item, index){item.draw();});
+    }
+
+    #findTopParent(node)
+    {
+        if (node.getParent() == undefined) 
+        {
+            return node;
+        }
+        else 
+        {
+            node = node.getParent();
+            this.#findTopParent(node);
+        }
+        return node;
     }
 }
