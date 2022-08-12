@@ -23,6 +23,7 @@ class StateGame extends State
 
     handleEvent(event) //virtual
     {
+        this.#mWorld.handleEvent(event);
         return false;
     }  
 }

@@ -17,6 +17,8 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 //     window.requestAnimationFrame(animate);
 // }
 
+const mPlayer = new Player();
+
 const mStack = new StateStack();
 
 mStack.registerState(StateID.TITLE, function(){return new StateTitle(mStack);});
@@ -46,11 +48,11 @@ var KeyEvent = {
 };
 
 window.addEventListener('keydown', (event) => {
-    KeyEvent.keydown = event.key;
+    if (!event.repeat) KeyEvent.keydown = event.key;
 })
 
 window.addEventListener('keyup', (event) => {
-    KeyEvent.keyup = event.key;
+    if (!event.repeat) KeyEvent.keyup = event.key;
 })
 
 canvas.addEventListener('mousemove', (event) => {

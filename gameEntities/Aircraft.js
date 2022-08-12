@@ -1,6 +1,9 @@
 class Aircraft extends Entity
 {
     #mSprite;
+    #mButLeftHolded;
+    #mButRightHolded;
+
     constructor(position, hitpoints, cat)
     {
         super(cat);
@@ -48,18 +51,65 @@ class Aircraft extends Entity
 
     right()
     {
-        this.#mSprite.Frame = {x : 2, y : 0};
-        this._mVelocity.x = 5;
+        this.#mButRightHolded = true;
+        if (this.#mButLeftHolded == true)
+        {
+            this.#mSprite.Frame = {x : 1, y : 0};
+        }
+        else
+        {
+            this.#mSprite.Frame = {x : 2, y : 0};
+        }
+        this._mVelocity.x += 5;
+    }
+
+    stop_right()
+    {
+        this.#mButRightHolded = false;
+        if (this.#mButLeftHolded == true)
+        {
+            this.#mSprite.Frame = {x : 0, y : 0};
+            this._mVelocity.x -= 5;
+        }
+        else
+        {
+            this.#mSprite.Frame = {x : 1, y : 0};
+            this._mVelocity.x = 0;
+        }
     }
 
     left()
     {
-        this.#mSprite.Frame = {x : 0, y : 0};
-        this._mVelocity.x = -5;
+        this.#mButLeftHolded = true;
+        if (this.#mButRightHolded == true)
+        {
+            this.#mSprite.Frame = {x : 1, y : 0};
+        }
+        else
+        {
+            this.#mSprite.Frame = {x : 0, y : 0};
+        }
+        this._mVelocity.x -= 5;
+    }
+
+    stop_left()
+    {
+        this.#mButLeftHolded = false;
+        if (this.#mButRightHolded == true)
+        {
+            this.#mSprite.Frame = {x : 2, y : 0};
+            this._mVelocity.x += 5;
+        }
+        else
+        {
+            this.#mSprite.Frame = {x : 1, y : 0};
+            this._mVelocity.x = 0;
+        }
     }
 
     shoot()
     {
-
+        console.log("shoot");
+        this.attachChild(new Bullet({x : this._Position.x + (this.#mSprite.SpriteProp.width / 2), y : this._Position.y}, 1, category.bullet));
     }
 }

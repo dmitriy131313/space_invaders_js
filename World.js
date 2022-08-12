@@ -20,8 +20,16 @@ class World
         this.#mSprite_background.Position = {x : 0, y : this.#mSprite_background_y_pos};
     }
 
+    handleEvent(event)
+    {
+        mPlayer.handleEvent(event);
+        return false;
+    }  
+
     update(dt)
     {
+        while (!commandQueue.isEmpty()) this.#mSceneGraph.onCommand(commandQueue.pop());
+
         this.#mSceneGraph.update(dt);
         this.#moveBackground();
     }

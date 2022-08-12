@@ -61,14 +61,14 @@ class SceneNode
         return this.#_mCategory;
     }
 
-    onCommand(command, dt)
+    onCommand(command)
     {
         // Command current node, if category matches
 	    if (command.category & this.getCategory())
-            command.action(this, dt);
+            command.action(this);
 
         // Command children
-        this.#_mChildren.forEach(function(item, index){item.onCommand(command, dt);});
+        this.#_mChildren.forEach(function(item, index){item.onCommand(command);});
     }
 
     updateCurrent(dt)
