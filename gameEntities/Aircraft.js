@@ -33,9 +33,11 @@ class Aircraft extends Entity
 
     updateCurrent(dt)
     {
+        if (this.isDestroyed()) return true;
         this._Position.x += this._mVelocity.x;
         this._Position.y += this._mVelocity.y;
         this.#mSprite.Position = this._Position;
+        return false;
     }
 
     drawCurrent()
@@ -110,6 +112,6 @@ class Aircraft extends Entity
     shoot()
     {
         console.log("shoot");
-        this.attachChild(new Bullet({x : this._Position.x + (this.#mSprite.SpriteProp.width / 2), y : this._Position.y}, 1, category.bullet));
+        this.attachChildToTopParent(new Bullet({x : this._Position.x + (this.#mSprite.SpriteProp.width / 2), y : this._Position.y}, 1, category.bullet));
     }
 }

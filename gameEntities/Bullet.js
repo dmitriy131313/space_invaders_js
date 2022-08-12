@@ -10,8 +10,11 @@ class Bullet extends Entity
 
     updateCurrent(dt)
     {
+        if (this.isDestroyed()) return true;
         this._Position.x += this._mVelocity.x;
         this._Position.y += this._mVelocity.y;
+        if (this._Position.y < -5) this.destroy();
+        return false;
     }
 
     drawCurrent()
