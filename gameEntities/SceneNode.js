@@ -34,6 +34,20 @@ class SceneNode
         return ret;
     }
 
+    checkCollision(node)
+    {
+        if (this.#_mParent != undefined)
+        { 
+            alert("Collision checking avalable only on scene graph level!");
+            return;
+        }
+
+        // this.#_mChildren.forEach(function(item, index)
+        // {
+        //     item.onCommand(command);
+        // });
+    }
+
     setParent(parent)
     {
         this.#_mParent = parent;
