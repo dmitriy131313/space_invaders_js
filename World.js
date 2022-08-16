@@ -10,7 +10,6 @@ class World
     {
         this.#mSceneGraph = new SceneNode(category.scene_graph);
         this.buildScene();
-    
     }
 
     #moveBackground()
@@ -24,13 +23,14 @@ class World
     {
         mPlayer.handleEvent(event);
         return false;
-    }  
+    }
 
     update(dt)
     {
         while (!commandQueue.isEmpty()) this.#mSceneGraph.onCommand(commandQueue.pop());
 
         this.#mSceneGraph.update(dt);
+        this.handleCollisions();
         this.#moveBackground();
     }
 
@@ -42,7 +42,14 @@ class World
 
     handleCollisions()
     {
-
+        let PairsArr = [];
+        this.#mSceneGraph.checkSceneCollision(this.#mSceneGraph, PairsArr);
+        PairsArr.forEach(function(item, index)
+        {
+            // if (item.l.getCategory() == category.aircraft && item.r.getCategory() == category.invader)
+            // {
+            // }
+        });
     }
 		
     buildScene()

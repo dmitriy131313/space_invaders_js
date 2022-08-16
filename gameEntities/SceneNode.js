@@ -33,24 +33,24 @@ class SceneNode
         return ret;
     }
 
-    checkSceneCollision(sceneGraph, PairsMap)
+    checkSceneCollision(sceneGraph, PairsArr)
     {
-	    this.checkNodeCollision(sceneGraph, PairsMap);
+	    this.checkNodeCollision(sceneGraph, PairsArr);
 
         for (let index = 0; index < sceneGraph._mChildren.length; index++)
         {
-            this.checkSceneCollision(sceneGraph._mChildren[index], PairsMap);
+            this.checkSceneCollision(sceneGraph._mChildren[index], PairsArr);
         }
     }
 
-    checkNodeCollision(node, PairsMap)
+    checkNodeCollision(node, PairsArr)
     {
-	    if (this != node && this.collision(this, node))
-            PairsMap.set(this, node);
+	    if (this.getCategory() != node.getCategory() && this.collision(this, node))
+            PairsArr.push({l : this, r : node});
 
         for (let index = 0; index < this._mChildren.length; index++)
         {
-            this._mChildren[index].checkNodeCollision(node, PairsMap);
+            this._mChildren[index].checkNodeCollision(node, PairsArr);
         }
     }
 
@@ -60,17 +60,17 @@ class SceneNode
         let rect_r = node_r.getBoundingRect();
 
         let conditionFor_X = (
-            (rect_l.x + rect_l.width > rect_r.x && rect_l.x + rect_l.width < rect_r.x + rect_r.width) || 
-            (rect_l.x < rect_r.x && rect_l.x + rect_l.width > rect_r.x + rect_r.width) ||
-            (rect_l.x > rect_r.x && rect_l.x + rect_l.width < rect_r.x + rect_r.width) ||
-            (rect_l.x < rect_r.x + rect_r.width && rect_l.x > rect_r.x)
+            (rect_l.x + rect_l.width >= rect_r.x && rect_l.x + rect_l.width <= rect_r.x + rect_r.width) || 
+            (rect_l.x <= rect_r.x && rect_l.x + rect_l.width >= rect_r.x + rect_r.width) ||
+            (rect_l.x >= rect_r.x && rect_l.x + rect_l.width <= rect_r.x + rect_r.width) ||
+            (rect_l.x <= rect_r.x + rect_r.width && rect_l.x >= rect_r.x)
         );
 
         let conditionFor_Y = (
-            (rect_l.y + rect_l.height > rect_r.y && rect_l.y + rect_l.height < rect_r.y + rect_r.height) || 
-            (rect_l.y < rect_r.y && rect_l.y + rect_l.height > rect_r.y + rect_r.height) ||
-            (rect_l.y > rect_r.y && rect_l.y + rect_l.height < rect_r.y + rect_r.height) ||
-            (rect_l.y < rect_r.y + rect_r.height && rect_l.y > rect_r.y)
+            (rect_l.y + rect_l.height >= rect_r.y && rect_l.y + rect_l.height <= rect_r.y + rect_r.height) || 
+            (rect_l.y <= rect_r.y && rect_l.y + rect_l.height >= rect_r.y + rect_r.height) ||
+            (rect_l.y >= rect_r.y && rect_l.y + rect_l.height <= rect_r.y + rect_r.height) ||
+            (rect_l.y <= rect_r.y + rect_r.height && rect_l.y >= rect_r.y)
         );
 
         if (conditionFor_X && conditionFor_Y)
@@ -81,6 +81,13 @@ class SceneNode
 
     getBoundingRect() //virtual
     {
+        let ret = {
+            x      : 0, 
+            y      : 0, 
+            width  : 500,
+            height : 500
+        }
+        return ret;
     }
 
     setParent(parent)
