@@ -36,11 +36,11 @@ class Sprite
             this.#mSpriteProp.width * this.#mFramesCurrent.x,   //pos X on IMG
             this.#mSpriteProp.height * this.#mFramesCurrent.y,  //pos Y on IMG
             this.#mSpriteProp.width,                            //frame WIDTH in IMG
-            this.#mSpriteProp.height,                           //frame HEIGH in IMG
+            this.#mSpriteProp.height,                           //frame height in IMG
             this.#mPosition.x,                                  //pos X on CANVAS
             this.#mPosition.y,                                  //pos y on CANVAS
             this.#mSpriteProp.width * this.#mScale,             //WIDTH on CANVAS
-            this.#mSpriteProp.height * this.#mScale             //HEIGH on CANVAS
+            this.#mSpriteProp.height * this.#mScale             //height on CANVAS
         )
     }
 
@@ -73,7 +73,7 @@ class Sprite
     {
         return {
             width : this.#mSpriteProp.width * this.#mScale,
-            heigh : this.#mSpriteProp.height * this.#mScale
+            height : this.#mSpriteProp.height * this.#mScale
         };
     }
 

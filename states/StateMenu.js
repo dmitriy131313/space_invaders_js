@@ -61,7 +61,7 @@ class StateMenu extends State
             if (   event.mouse_move.clientX > this.#mSprite_play.Position.x 
                 && event.mouse_move.clientX < this.#mSprite_play.Position.x + this.#mSprite_play.SpriteProp.width
                 && event.mouse_move.clientY > this.#mSprite_play.Position.y
-                && event.mouse_move.clientY < this.#mSprite_play.Position.y + this.#mSprite_play.SpriteProp.heigh)
+                && event.mouse_move.clientY < this.#mSprite_play.Position.y + this.#mSprite_play.SpriteProp.height)
             {
                 if (this.#buttonState == 0)
                 {

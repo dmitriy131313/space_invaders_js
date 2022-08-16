@@ -62,16 +62,21 @@ class SceneNode
         let conditionFor_X = (
             (rect_l.x + rect_l.width > rect_r.x && rect_l.x + rect_l.width < rect_r.x + rect_r.width) || 
             (rect_l.x < rect_r.x && rect_l.x + rect_l.width > rect_r.x + rect_r.width) ||
-            (rect_l.x < rect_r.x && rect_l.x + rect_l.width > rect_r.x + rect_r.width)
+            (rect_l.x > rect_r.x && rect_l.x + rect_l.width < rect_r.x + rect_r.width) ||
+            (rect_l.x < rect_r.x + rect_r.width && rect_l.x > rect_r.x)
         );
 
-        let conditionFor_Y = 1;
+        let conditionFor_Y = (
+            (rect_l.y + rect_l.height > rect_r.y && rect_l.y + rect_l.height < rect_r.y + rect_r.height) || 
+            (rect_l.y < rect_r.y && rect_l.y + rect_l.height > rect_r.y + rect_r.height) ||
+            (rect_l.y > rect_r.y && rect_l.y + rect_l.height < rect_r.y + rect_r.height) ||
+            (rect_l.y < rect_r.y + rect_r.height && rect_l.y > rect_r.y)
+        );
 
-        if ((rect_l.x + rect_l.width > rect_r.x && rect_l.x + rect_l.width < rect_r.x + rect_r.width) ||
-            (1))
-        {
-
-        }
+        if (conditionFor_X && conditionFor_Y)
+            return true;
+        else
+            return false;
     }
 
     getBoundingRect() //virtual

@@ -23,10 +23,10 @@ class Aircraft extends Entity
     getBoundingRect()
     {
         let ret = {
-            x     : this._Position.x, 
-            y     : this._Position.y, 
-            width : this.#mSprite.SpriteProp.width,
-            heigh : this.#mSprite.SpriteProp.heigh
+            x      : this._Position.x, 
+            y      : this._Position.y, 
+            width  : this.#mSprite.SpriteProp.width,
+            height : this.#mSprite.SpriteProp.height
         }
         return ret;
     }
