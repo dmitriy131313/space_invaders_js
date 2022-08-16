@@ -9,7 +9,6 @@ const category = {
 
 class SceneNode
 {
-    #_mChildren;
     #_mCategory;
     #_mParent;
 
@@ -18,7 +17,7 @@ class SceneNode
     {
         this.#_mCategory = cat;
         this.#_mParent = undefined;
-        this.#_mChildren = [];
+        this._mChildren = [];
     }
 
     draw()
@@ -34,18 +33,49 @@ class SceneNode
         return ret;
     }
 
-    checkCollision(node)
+    checkSceneCollision(sceneGraph, PairsMap)
     {
-        if (this.#_mParent != undefined)
-        { 
-            alert("Collision checking avalable only on scene graph level!");
-            return;
-        }
+	    this.checkNodeCollision(sceneGraph, PairsMap);
 
-        // this.#_mChildren.forEach(function(item, index)
-        // {
-        //     item.onCommand(command);
-        // });
+        for (let index = 0; index < sceneGraph._mChildren.length; index++)
+        {
+            this.checkSceneCollision(sceneGraph._mChildren[index], PairsMap);
+        }
+    }
+
+    checkNodeCollision(node, PairsMap)
+    {
+	    if (this != node && this.collision(this, node))
+            PairsMap.set(this, node);
+
+        for (let index = 0; index < this._mChildren.length; index++)
+        {
+            this._mChildren[index].checkNodeCollision(node, PairsMap);
+        }
+    }
+
+    collision(node_l, node_r)
+    {
+        let rect_l = node_l.getBoundingRect();
+        let rect_r = node_r.getBoundingRect();
+
+        let conditionFor_X = (
+            (rect_l.x + rect_l.width > rect_r.x && rect_l.x + rect_l.width < rect_r.x + rect_r.width) || 
+            (rect_l.x < rect_r.x && rect_l.x + rect_l.width > rect_r.x + rect_r.width) ||
+            (rect_l.x < rect_r.x && rect_l.x + rect_l.width > rect_r.x + rect_r.width)
+        );
+
+        let conditionFor_Y = 1;
+
+        if ((rect_l.x + rect_l.width > rect_r.x && rect_l.x + rect_l.width < rect_r.x + rect_r.width) ||
+            (1))
+        {
+
+        }
+    }
+
+    getBoundingRect() //virtual
+    {
     }
 
     setParent(parent)
@@ -61,22 +91,22 @@ class SceneNode
     attachChild(child)
     {
         child.setParent(this);
-        this.#_mChildren.push(child);
+        this._mChildren.push(child);
     }
 
     attachChildToTopParent(child)
     {
         let topParent = this.#findTopParent(this.getParent());
         child.setParent(topParent);
-        topParent.#_mChildren.push(child);
+        topParent._mChildren.push(child);
     }
 
     detachChild(child_to_detach)
     {
-        const index = this.#_mChildren.indexOf(child_to_detach);
+        const index = this._mChildren.indexOf(child_to_detach);
         
         if (index > -1) {
-            this.#_mChildren.splice(index, 1);
+            this._mChildren.splice(index, 1);
         }
         else {
             alert("Can't find Children node!");
@@ -95,7 +125,7 @@ class SceneNode
             command.action(this);
 
         // Command children
-        this.#_mChildren.forEach(function(item, index){item.onCommand(command);});
+        this._mChildren.forEach(function(item, index){item.onCommand(command);});
     }
 
     updateCurrent(dt)
@@ -106,8 +136,8 @@ class SceneNode
     #updateChildren(dt)
     {
         let i = 0;
-        while (i < this.#_mChildren.length) {
-            const item = this.#_mChildren[i];
+        while (i < this._mChildren.length) {
+            const item = this._mChildren[i];
             if (item.update(dt)) {
                 this.detachChild(item);
             }
@@ -124,7 +154,7 @@ class SceneNode
 
     #drawChildren()
     {
-        this.#_mChildren.forEach(function(item, index){item.draw();});
+        this._mChildren.forEach(function(item, index){item.draw();});
     }
 
     #findTopParent(node)
