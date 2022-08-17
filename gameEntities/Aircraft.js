@@ -12,7 +12,7 @@ class Aircraft extends Entity
             position : position,
             imageSrc : "./sprites/SpaceShooterAssetPack_Ships_500.png",
             spriteProp : {width : 50, height : 50},
-            scale : 1,
+            scale : 0.5,
             framesMax : {x : 10, y : 10}
         });
 
@@ -112,6 +112,6 @@ class Aircraft extends Entity
     shoot()
     {
         console.log("shoot");
-        this.attachChildToTopParent(new Bullet({x : this._Position.x + (this.#mSprite.SpriteProp.width / 2), y : this._Position.y}, 1, category.bullet));
+        this.attachChildToTopParent(new Bullet(-10, {x : this._Position.x + (this.#mSprite.SpriteProp.width / 2), y : this._Position.y}, 1, category.bullet));
     }
 }

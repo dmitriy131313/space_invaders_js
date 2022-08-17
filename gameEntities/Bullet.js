@@ -2,12 +2,12 @@ class Bullet extends Entity
 {
     #mBulletRect;
 
-    constructor(position, hitpoints, cat)
+    constructor(velY, position, hitpoints, cat)
     {
         super(cat);
         super.hitpoints = hitpoints;
         this._Position = position;
-        this._mVelocity = {x : 0, y : -10};
+        this._mVelocity = {x : 0, y : velY};
         this.#mBulletRect = {width : 2, height : 5};
     }
 
@@ -16,13 +16,17 @@ class Bullet extends Entity
         if (this.isDestroyed()) return true;
         this._Position.x += this._mVelocity.x;
         this._Position.y += this._mVelocity.y;
-        if (this._Position.y < -5) this.destroy();
+        if (this._Position.y < -5 || this._Position.y > 500) this.destroy();
         return false;
     }
 
     drawCurrent()
     {
-        c.fillStyle = 'white';
+        if (this.getCategory() == category.inv_bullet)
+            c.fillStyle = 'red';
+        else
+            c.fillStyle = 'white';
+            
         c.fillRect(this._Position.x, this._Position.y, this.#mBulletRect.width, this.#mBulletRect.height);
     }
 

@@ -2,7 +2,8 @@ const category = {
     "scene_graph" : 0x01,
     "aircraft"    : 0x02,
     "invader"     : 0x04,
-    "bullet"      : 0x08
+    "bullet"      : 0x08,
+    "inv_bullet"  : 0x10,
 }
 
 //================================================================================

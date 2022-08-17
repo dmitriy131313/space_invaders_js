@@ -10,6 +10,11 @@ class World
     {
         this.#mSceneGraph = new SceneNode(category.scene_graph);
         this.buildScene();
+
+        this.#mPlayerAircraft = new Aircraft({x : 500, y : 475}, 100, category.aircraft);
+        this.#mSceneGraph.attachChild(this.#mPlayerAircraft);
+
+        this.addEnemies();
     }
 
     #moveBackground()
@@ -30,6 +35,7 @@ class World
         while (!commandQueue.isEmpty()) this.#mSceneGraph.onCommand(commandQueue.pop());
 
         this.#mSceneGraph.update(dt);
+        this.keepPlayerInSceneBounds();
         this.handleCollisions();
         this.#moveBackground();
     }
@@ -46,9 +52,12 @@ class World
         this.#mSceneGraph.checkSceneCollision(this.#mSceneGraph, PairsArr);
         PairsArr.forEach(function(item, index)
         {
-            // if (item.l.getCategory() == category.aircraft && item.r.getCategory() == category.invader)
-            // {
-            // }
+            if ((item.l.getCategory() == category.bullet && item.r.getCategory() == category.invader) ||
+                (item.l.getCategory() == category.inv_bullet && item.r.getCategory() == category.aircraft))
+            {
+                item.l.destroy();
+                item.r.destroy();
+            }
         });
     }
 		
@@ -62,13 +71,24 @@ class World
             scale : 1,
             framesMax : {x : 1, y : 1}
         });
-
-        this.#mPlayerAircraft = new Aircraft({x : 500, y : 450}, 100, category.aircraft);
-        this.#mSceneGraph.attachChild(this.#mPlayerAircraft);
     }
 
     addEnemies()
     {
+        for (let i_y = 10; i_y < 130; i_y += 30)
+        {
+            for (let i_x = 30; i_x < 630; i_x += 30)
+            {
+                let inv = new Invader({x : i_x, y : i_y}, 100, category.invader);
+                inv.Velocity = {x : 5, y : 0};
+                this.#mSceneGraph.attachChild(inv);
+            }
+        }
+    }
 
+    keepPlayerInSceneBounds()
+    {
+        if (this.#mPlayerAircraft.Position.x < 0) this.#mPlayerAircraft.Position.x = 0;
+        else if (this.#mPlayerAircraft.Position.x + this.#mPlayerAircraft.getBoundingRect().width > 1024) this.#mPlayerAircraft.Position.x = 999; 
     }
 }
