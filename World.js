@@ -50,15 +50,20 @@ class World
     {
         let PairsArr = [];
         this.#mSceneGraph.checkSceneCollision(this.#mSceneGraph, PairsArr);
-        PairsArr.forEach(function(item, index)
+        for (let index = 0; index < PairsArr.length; index++)
         {
-            if ((item.l.getCategory() == category.bullet && item.r.getCategory() == category.invader) ||
-                (item.l.getCategory() == category.inv_bullet && item.r.getCategory() == category.aircraft))
+            if ((PairsArr[index].l.getCategory() == category.bullet && PairsArr[index].r.getCategory() == category.invader) ||
+                (PairsArr[index].l.getCategory() == category.inv_bullet && PairsArr[index].r.getCategory() == category.aircraft))
             {
-                item.l.destroy();
-                item.r.destroy();
+                PairsArr[index].l.destroy();
+                PairsArr[index].r.destroy();
+                //this.#mSceneGraph.attachChild(new Explosion({x : 300, y : 300}));
+                this.#mSceneGraph.attachChild(new Explosion({
+                    x : PairsArr[index].r.Position.x + PairsArr[index].r.getBoundingRect().width / 2, 
+                    y : PairsArr[index].r.Position.y + PairsArr[index].r.getBoundingRect().height / 2
+                }));
             }
-        });
+        }
     }
 		
     buildScene()
@@ -67,9 +72,7 @@ class World
         this.#mSprite_background = new Sprite({
             position : {x : 0, y : this.#mSprite_background_y_pos},
             imageSrc : "./sprites/stars_n.jpg",
-            spriteProp : {width : 1024, height : 1000},
-            scale : 1,
-            framesMax : {x : 1, y : 1}
+            spriteProp : {width : 1024, height : 1000}
         });
     }
 

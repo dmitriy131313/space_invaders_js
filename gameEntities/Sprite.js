@@ -4,18 +4,19 @@ class Sprite
     #mImage;
     #mSpriteProp;
     #mScale;
-    #mFramesMax; // x, y
     #mFramesCurrent; // x, y
     #mFramesElapsed;
     #mFramesHold;
+    #mFramesToAnim;
+    #mAnimIters;
 
     constructor({
         position,
         imageSrc,
         spriteProp = {width: 50, height: 50},
         scale = 1,
-        framesMax = {x : 1, y : 1},
-        frameStart = {x : 0, y : 0},
+        frameCurrent = {x : 0, y : 0},
+        framesToAnim = {start : 0, end : 0}
         }) 
     {
         this.#mPosition = position;
@@ -23,10 +24,11 @@ class Sprite
         this.#mImage.src = imageSrc;
         this.#mSpriteProp = spriteProp;
         this.#mScale = scale;
-        this.#mFramesMax = framesMax;
-        this.#mFramesCurrent = frameStart;
+        this.#mFramesCurrent = frameCurrent;
         this.#mFramesElapsed = 0;
         this.#mFramesHold = 5;
+        this.#mFramesToAnim = framesToAnim;
+        this.#mAnimIters = 0;
     }
     
     draw() 
@@ -77,19 +79,27 @@ class Sprite
         };
     }
 
+    set AnimFrames(frames)
+    {
+        this.#mFramesToAnim = frames;
+    }
+
+    get AnimIterationsNum()
+    {
+        return this.#mAnimIters;
+    }
+
     animate()
     {
         this.#mFramesElapsed++
 
         if (this.#mFramesElapsed % this.#mFramesHold === 0) 
         {
-            if (this.#mFramesCurrent.x < this.#mFramesMax.x - 1) 
+            this.#mFramesCurrent.x = (this.#mFramesCurrent.x + 1) % (this.#mFramesToAnim.end + 1);
+            if (this.#mFramesCurrent.x == 0)
             {
-                this.#mFramesCurrent.x++
-            } 
-            else 
-            {
-                this.#mFramesCurrent.x = 0
+                this.#mFramesCurrent.x = this.#mFramesToAnim.start;
+                this.#mAnimIters++;
             }
         }
     }

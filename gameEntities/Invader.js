@@ -12,13 +12,11 @@ class Invader extends Entity
             imageSrc : "./sprites/SpaceShooterAssetPack_Ships_500.png",
             spriteProp : {width : 50, height : 50},
             scale : 0.5,
-            framesMax : {x : 10, y : 10}
+            frameCurrent : {x : 4, y : 2}
         });
 
         super.hitpoints = hitpoints;
-        this.#mSprite.Frame = {x : 4, y : 2};
-
-        this.#mShootCnt = Math.floor(Math.random() * 1001);
+        this.#mShootCnt = Math.floor(Math.random() * 2000);
     }
 
     getBoundingRect()
@@ -41,7 +39,7 @@ class Invader extends Entity
 
         if (this.#mShootCnt-- <= 0)
         {
-            this.#mShootCnt = Math.floor(Math.random() * 1001);
+            this.#mShootCnt = Math.floor(Math.random() * 2000);
             this.shoot();
         }
 

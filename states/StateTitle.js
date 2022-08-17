@@ -11,9 +11,7 @@ class StateTitle extends State
         this.#mSprite = new Sprite({
             position : {x : 0, y : 0},
             imageSrc : "./sprites/hero.jpg",
-            spriteProp : {width : 1024, height : 500},
-            scale : 1,
-            framesMax : {x : 1, y : 1}
+            spriteProp : {width : 1024, height : 500}
         });
         this.#cnt = 100;
         this.#state = 0;

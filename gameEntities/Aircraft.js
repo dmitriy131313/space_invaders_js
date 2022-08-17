@@ -13,11 +13,10 @@ class Aircraft extends Entity
             imageSrc : "./sprites/SpaceShooterAssetPack_Ships_500.png",
             spriteProp : {width : 50, height : 50},
             scale : 0.5,
-            framesMax : {x : 10, y : 10}
+            frameCurrent : {x : 1, y : 0}
         });
 
         super.hitpoints = hitpoints;
-        this.#mSprite.Frame = {x : 1, y : 0};
     }
 
     getBoundingRect()
